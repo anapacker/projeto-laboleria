@@ -1,18 +1,13 @@
 import { db } from "../database.js"
 
 
-export function getAllCakes(){
+export async function getCakesName(name){
     return db.query(
-        `SELECT * FROM cakes`
-    )
-}
-export function getCakesName(name){
-    return db.query(
-        `SELECT cakes.name FROM cakes WHERE name=$1`
+        `SELECT * FROM cakes WHERE name=$1`
         ,[name]
     )
 }
-export function insertCake(name, price, image, description){
+export async function insertCake(name, price, image, description){
     return db.query(
         `INSERT INTO cakes (name, price, image, description) 
          VALUES ($1, $2, $3, $4) 

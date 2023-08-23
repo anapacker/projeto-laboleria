@@ -4,9 +4,9 @@ export async function createCake(req, res) {
     const { name, price, image, description } = req.body
 
     try {
-        const cake = getCakesName(name)
+        const cake = await getCakesName(name)
         if (cake.rowCount > 0) return res.status(409).send( "Esse nome de bolo já existe.")
-       
+
         await insertCake(name, price, image, description)
         
         res.sendStatus(201)
