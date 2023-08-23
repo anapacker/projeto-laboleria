@@ -11,7 +11,6 @@ export async function insertCake(name, price, image, description){
     return db.query(
         `INSERT INTO cakes (name, price, image, description) 
          VALUES ($1, $2, $3, $4) 
-         RETURNING id, name
          `, [name, price, image, description]
     )
 
