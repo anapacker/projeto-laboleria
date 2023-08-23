@@ -1,4 +1,37 @@
-import { getCakeQuery, getClientQuery, insertOrder } from "../repositories/order.repository.js"
+import dayjs from "dayjs"
+import { getAllOrdersQuery, getCakeQuery, getClientQuery, insertOrder } from "../repositories/order.repository.js"
+
+export async function getOrders(req, res){
+  try{
+    const response = await getAllOrdersQuery()
+
+    const orders = response.rows.map(order => {
+      const obj = {
+        client:{
+          id:order.clientId,
+          name:order.clientName,
+          address: order.address,
+          phone:order.phone
+        },
+        cake:{
+          id:order.cakeId,
+          name:order.cakeName,
+          price:order.price,
+          description:order.description,
+          image:order.image
+        },
+        orderId:order.id,
+        quantity:order.quantity,
+        totalPrice:order.totalPrice,
+        createdAt:dayjs(order.createdAt).format('YYYY-MM-DD HH:mm')
+      }
+      return obj
+    })
+    res.status(200).send(orders)
+  } catch (err) {
+    return res.status(500).send(err.message)
+  }
+}
 
 export async function createOrder(req, res){
   const {clientId, cakeId, quantity, totalPrice} = req.body
@@ -15,5 +48,5 @@ export async function createOrder(req, res){
     res.sendStatus(201)
 } catch (err) {
     return res.status(500).send(err.message)
-}
+  }
 }

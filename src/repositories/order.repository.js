@@ -20,3 +20,19 @@ export async function insertOrder(clientId, cakeId, quantity, totalPrice){
     )
 
 }
+
+export async function getAllOrdersQuery(){
+  return db.query(`
+    SELECT orders.*,
+     clients.name AS "clientName",
+     cakes.name AS "cakeName",
+     clients.address,
+     clients.phone,
+     cakes.price,
+     cakes.image,
+     cakes.description
+      FROM orders
+      JOIN clients ON clients.id = orders."clientId"
+      JOIN cakes ON cakes.id = orders."cakeId"
+      `)
+}
