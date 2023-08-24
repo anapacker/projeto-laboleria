@@ -54,3 +54,17 @@ export async function getOrderByIdQuery(orderId){
    WHERE orders.id=$1
     `, [orderId])
 }
+
+export async function getClientsOrderByIdQuery(clientId){
+  return db.query(`
+    SELECT 
+      orders.id AS "orderId", 
+      orders.quantity, 
+      orders."createdAt", 
+      orders."totalPrice",
+      cakes.name AS "cakeName"
+    FROM orders
+    INNER JOIN cakes ON orders."cakeId" = cakes.id
+    WHERE orders."clientId" = $1
+  `,[clientId])
+}

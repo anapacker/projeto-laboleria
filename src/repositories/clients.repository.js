@@ -8,3 +8,8 @@ export function insertClients(name, address, phone){
     )
 
 }
+export function getClientByIdQuery(clientId){
+    return db.query(`
+        SELECT * FROM clients WHERE id=$1    
+    `,[clientId])
+}
