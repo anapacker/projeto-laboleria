@@ -22,13 +22,13 @@ export async function getOrders(req, res) {
         cake: {
           id: order.cakeId,
           name: order.cakeName,
-          price: order.price,
+          price: parseFloat(order.price),
           description: order.description,
           image: order.image
         },
         orderId: order.id,
         quantity: order.quantity,
-        totalPrice: order.totalPrice,
+        totalPrice: parseFloat(order.totalPrice),
         createdAt: dayjs(order.createdAt).format('YYYY-MM-DD HH:mm')
       }
       return obj
@@ -74,13 +74,13 @@ export async function getOrderById(req, res) {
       cake: {
         id: order.cakeId,
         name: order.cakeName,
-        price: order.price,
+        price: parseFloat(order.price),
         description: order.description,
         image: order.image
       },
       orderId: order.orderId,
       quantity: order.quantity,
-      totalPrice: order.totalPrice,
+      totalPrice: parseFloat(order.totalPrice),
       createdAt: dayjs(order.createdAt).format('YYYY-MM-DD HH:mm')
     }
 

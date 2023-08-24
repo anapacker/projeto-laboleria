@@ -27,6 +27,7 @@ export async function getClientOrdersById(req, res){
         const clientOrders = result.rows.map(order => {
             const obj = {
                 ...order,
+                totalPrice:parseFloat(order.totalPrice),
                 createdAt:dayjs(order.createdAt).format('YYYY-MM-DD HH:mm')
             }
             return obj
