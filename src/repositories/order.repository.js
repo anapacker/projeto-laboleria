@@ -31,10 +31,12 @@ export async function getAllOrdersQuery(date) {
      clients.phone,
      cakes.price,
      cakes.image,
-     cakes.description
+     cakes.description,
+     cakes."flavourId"
       FROM orders
       JOIN clients ON clients.id = orders."clientId"
       JOIN cakes ON cakes.id = orders."cakeId"
+      JOIN flavours ON flavours.id = cakes."flavourId"
       WHERE orders."createdAt" >= TO_TIMESTAMP($1, 'YYYY-MM-DD') 
       AND orders."createdAt" < TO_TIMESTAMP($1, 'YYYY-MM-DD') + INTERVAL '1 DAY';
       `, [date])
@@ -47,10 +49,12 @@ export async function getAllOrdersQuery(date) {
        clients.phone,
        cakes.price,
        cakes.image,
-       cakes.description
+       cakes.description,
+       cakes."flavourId"
         FROM orders
         JOIN clients ON clients.id = orders."clientId"
         JOIN cakes ON cakes.id = orders."cakeId"
+        JOIN flavours ON flavours.id = cakes."flavourId"
         `)
 
 }

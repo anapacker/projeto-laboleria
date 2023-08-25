@@ -24,7 +24,8 @@ export async function getOrders(req, res) {
           name: order.cakeName,
           price: parseFloat(order.price),
           description: order.description,
-          image: order.image
+          image: order.image,
+          flavourId:order.flavourId
         },
         orderId: order.id,
         quantity: order.quantity,
